@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank System | Automated Vehicle Certificate & License Tracking</title>
+  <meta name="description" content="Streamlining Arabic license plate OCR, voice recognition, and real-time document synchronization for enterprise logistics and fleet operations." />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            navy: {
+              800: '#0f172a',
+              850: '#0b1329',
+              900: '#070d1d',
+              950: '#030712',
+            },
+            fintech: {
+              cyan: '#06b6d4',
+              blue: '#2563eb',
+              indigo: '#4f46e5',
+              emerald: '#10b981',
+              accent: '#38bdf8',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom glow effects and scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070d1d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .grid-glow {
+      background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+  </style>
+</head>
+<body class="bg-navy-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-cyan-200 min-h-screen flex flex-col relative overflow-x-hidden">
+
+  <!-- Background decorative light gradients -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-1/4 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute inset-0 grid-glow opacity-60"></div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-navy-950/80 border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo / App Title -->
+        <a href="#" class="flex items-center gap-3.5 group">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 via-cyan-500 to-indigo-500 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+            <div class="w-full h-full bg-navy-900 rounded-[10px] flex items-center justify-center">
+              <!-- Bank Vault / License Scanner Icon -->
+              <svg class="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+                <line x1="7" y1="8" x2="17" y2="8"></line>
+                <line x1="7" y1="12" x2="13" y2="12"></line>
+                <circle cx="16" cy="14" r="2"></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
+              Bank System
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-cyan-950/80 text-cyan-400 border border-cyan-700/40">Enterprise</span>
+            </span>
+            <span class="text-xs text-slate-400 font-medium">Vehicle License & Certificate Platform</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="#" class="px-3.5 py-2 text-sm font-medium text-slate-200 hover:text-cyan-400 rounded-lg hover:bg-slate-800/50 transition-colors">Home</a>
+          <a href="#features" class="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-lg hover:bg-slate-800/50 transition-colors">Features</a>
+          <a href="#security" class="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-lg hover:bg-slate-800/50 transition-colors">Security</a>
+          <a href="#architecture" class="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-lg hover:bg-slate-800/50 transition-colors">Architecture</a>
+          <a href="privacy.html" class="px-3.5 py-2 text-sm font-medium text-slate-300 hover:text-cyan-400 rounded-lg hover:bg-slate-800/50 transition-colors">Privacy Policy</a>
+        </nav>
+
+        <!-- Right Side CTA Actions -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#security" class="text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-slate-200 transition-colors px-2 py-1">
+            Status: <span class="text-emerald-400">● 99.98% Operational</span>
+          </a>
+          <button onclick="openPortalModal()" class="relative inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-700 rounded-lg shadow-md shadow-blue-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 border border-cyan-400/30">
+            <span>System Portal</span>
+            <svg class="w-4 h-4 ml-1.5 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="flex md:hidden items-center">
+          <button id="mobile-menu-button" type="button" aria-label="Toggle Navigation Menu" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-slate-800 bg-navy-900/95 backdrop-blur-xl px-4 pt-2 pb-6 space-y-2">
+      <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-slate-800/80">Home</a>
+      <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Features</a>
+      <a href="#security" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Security</a>
+      <a href="#architecture" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Architecture</a>
+      <a href="privacy.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Privacy Policy</a>
+      <div class="pt-3 border-t border-slate-800">
+        <button onclick="openPortalModal()" class="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-600 shadow-md">
+          Open System Portal
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow z-10">
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Hero Copy (Left Column) -->
+          <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+            
+            <!-- Trust Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-900/90 border border-slate-700/60 shadow-inner">
+              <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              </span>
+              <span class="text-slate-300">Next-Gen Intelligent Fleet Logistics</span>
+              <span class="text-slate-500">|</span>
+              <span class="text-cyan-400 font-mono">v4.2 Enterprise Ready</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+              Automated Enterprise <br class="hidden sm:inline" />
+              <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300 bg-clip-text text-transparent">Vehicle Certificate</span> &amp; <br />
+              License Tracking
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Streamlining Arabic license plate OCR, voice recognition, and real-time document synchronization for enterprise logistics and fleet operations.
+            </p>
+
+            <!-- Call to Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <button onclick="openPortalModal()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 bg-size-200 hover:bg-right hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 border border-cyan-300/30">
+                <svg class="w-5 h-5 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span>System Portal</span>
+              </button>
+
+              <a href="#documentation" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 hover:text-white transition-all duration-200 flex items-center justify-center gap-2 shadow-sm">
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>View Documentation</span>
+              </a>
+            </div>
+
+            <!-- Key Quick Metrics -->
+            <div class="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+              <div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">99.8%</div>
+                <div class="text-xs text-slate-400 mt-1">Arabic OCR Accuracy</div>
+              </div>
+              <div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono">&lt; 250ms</div>
+                <div class="text-xs text-slate-400 mt-1">ASR Speech Inference</div>
+              </div>
+              <div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">OAuth 2.0</div>
+                <div class="text-xs text-slate-400 mt-1">Google Drive API Sync</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Graphic / Interactive Mock Interface (Right Column) -->
+          <div class="lg:col-span-5 relative">
+            
+            <!-- Glow background effect -->
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-blue-600/30 blur-xl opacity-75"></div>
+            
+            <!-- Glass Card Container -->
+            <div class="relative bg-navy-900/90 border border-slate-700/80 rounded-2xl p-6 shadow-2xl backdrop-blur-md space-y-5">
+              
+              <!-- Window top bar -->
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div class="flex items-center space-x-2">
+                  <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                  <span class="text-xs font-mono text-slate-400 ml-2">bank-ocr-daemon.live</span>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono bg-emerald-950/60 text-emerald-400 border border-emerald-800/50">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  SYNCHRONIZED
+                </span>
+              </div>
+
+              <!-- Arabic License Plate Visual Card -->
+              <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <span class="font-medium flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    </svg>
+                    Live Camera Stream &amp; OCR Engine
+                  </span>
+                  <span class="text-cyan-400 font-mono">Confidence: 99.82%</span>
+                </div>
+
+                <!-- Realistic Egyptian / Arabic Plate Mock -->
+                <div class="relative bg-gradient-to-b from-white to-slate-100 rounded-lg p-3 text-slate-950 shadow-md border-2 border-slate-300">
+                  <div class="border-b border-slate-300 pb-1 mb-2 flex items-center justify-between text-[11px] font-bold text-slate-600">
+                    <span>EGYPT • مـصـر</span>
+                    <span class="bg-blue-600 text-white px-1.5 py-0.2 rounded text-[10px]">COMMERCIAL</span>
+                  </div>
+                  <div class="flex items-center justify-around py-1">
+                    <div class="text-right">
+                      <div class="text-2xl sm:text-3xl font-extrabold tracking-wider font-mono text-slate-900">س ق ب</div>
+                      <div class="text-[10px] text-slate-500 font-sans">Letters (Arabic)</div>
+                    </div>
+                    <div class="h-8 w-px bg-slate-300"></div>
+                    <div class="text-left">
+                      <div class="text-2xl sm:text-3xl font-extrabold tracking-wider font-mono text-slate-900">٤ ٨ ٢ ١</div>
+                      <div class="text-[10px] text-slate-500 font-sans">Digits (4821)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Extracted Metadata Stream -->
+              <div class="space-y-2 font-mono text-xs">
+                <div class="flex items-center justify-between p-2.5 bg-slate-950/60 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Certificate Extraction
+                  </span>
+                  <span class="text-emerald-400 font-semibold">VALID (PDF Verified)</span>
+                </div>
+
+                <div class="flex items-center justify-between p-2.5 bg-slate-950/60 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 flex items-center gap-2">
+                    <!-- Mic / Speech Icon -->
+                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                    </svg>
+                    ASR Egyptian Voice Match
+                  </span>
+                  <span class="text-cyan-300">"س ق ب ٤٨٢١" Match OK</span>
+                </div>
+
+                <div class="flex items-center justify-between p-2.5 bg-slate-950/60 rounded-lg border border-slate-800">
+                  <span class="text-slate-400 flex items-center gap-2">
+                    <!-- Cloud Sync Icon -->
+                    <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                    </svg>
+                    Google Drive Sync
+                  </span>
+                  <span class="text-blue-300">Sync ID: #GD-8923-DOC</span>
+                </div>
+              </div>
+
+              <!-- Micro status pill -->
+              <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400">
+                <span>Multi-tenant Isolation: <strong class="text-slate-200">Enforced</strong></span>
+                <span class="text-slate-500">Latency: 142ms</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- KEY FEATURES SECTION -->
+    <section id="features" class="py-24 bg-navy-900/60 border-y border-slate-800/80 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800/60">
+            CORE CAPABILITIES
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Engineered for High-Stakes Fleet Compliance
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg">
+            A comprehensive, high-throughput technology suite designed specifically for vehicle license tracking, document auditing, and regulatory adherence.
+          </p>
+        </div>
+
+        <!-- 4-Feature Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          
+          <!-- Feature 1: Automated Certificate Extraction -->
+          <div class="group relative bg-navy-950/80 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-13 h-13 w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
+                Automated Certificate Extraction
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Fast PDF &amp; OCR processing engine that parses complex multi-page vehicle certificates, inspection manifests, and insurance documents in under two seconds.
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center text-xs font-mono text-cyan-400">
+              <span>Sub-second PDF parsing</span>
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Feature 2: Voice-to-Data Integration -->
+          <div class="group relative bg-navy-950/80 border border-slate-800 hover:border-blue-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
+                Voice-to-Data Integration
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Specialized Automatic Speech Recognition (ASR) tuned for Egyptian and regional Arabic dialects, enabling hands-free field logging of license plates and audio audit notes.
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center text-xs font-mono text-blue-400">
+              <span>Egyptian Arabic ASR tuned</span>
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Feature 3: Secure Cloud Synchronization -->
+          <div class="group relative bg-navy-950/80 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:bg-emerald-500/20 transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                Secure Cloud Synchronization
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Real-time, resilient synchronization with Google Drive API scopes, archiving vehicle documentation files securely in enterprise-designated corporate cloud folders.
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center text-xs font-mono text-emerald-400">
+              <span>Google Drive API connected</span>
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Feature 4: High-Performance Role-Based Access -->
+          <div class="group relative bg-navy-950/80 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 hover:-translate-y-1 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                Role-Based Access &amp; Multi-Tenant
+              </h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Granular hierarchy with Admin, Fleet Auditor, and Branch Operator roles. Full multi-tenant data boundaries ensure branch privacy and zero privilege leakage.
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center text-xs font-mono text-indigo-400">
+              <span>RBAC &amp; Group Policies</span>
+              <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECURITY & COMPLIANCE SECTION -->
+    <section id="security" class="py-24 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-gradient-to-b from-navy-900 to-navy-950 border border-slate-800 rounded-3xl p-8 sm:p-12 lg:p-16 relative shadow-2xl">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+              
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-950/70 text-emerald-400 border border-emerald-800/50">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span>ENTERPRISE-GRADE TRUST ARCHITECTURE</span>
+              </div>
+
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Security &amp; Compliance at Banking Standard
+              </h2>
+
+              <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                Bank System is engineered from the ground up to protect confidential vehicle asset documentation and audit records with strict defense-in-depth principles.
+              </p>
+
+              <!-- Security Pillars -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                
+                <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div class="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-white">End-to-End Encryption</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">TLS 1.3 in-transit and AES-256 at rest for all vehicle metadata and OCR artifacts.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-white">OAuth 2.0 Security</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Industry-standard authentication with short-lived tokens, refresh rotation, and Google OAuth compliance.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-white">Token Authorization</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Cryptographically signed JWT bearer tokens with instant revocation and audit logging.</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
+                  <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-semibold text-white">Immutable Audit Trails</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Every scan, voice trigger, and file sync is permanently signed with timestamp and operator ID.</p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Security Assurance Graphic Box -->
+            <div class="lg:col-span-5">
+              <div class="bg-slate-950/90 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl relative">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                  <h4 class="font-bold text-white text-sm uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                    Compliance Verification
+                  </h4>
+                  <span class="text-xs font-mono text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/40">Verified 2026</span>
+                </div>
+
+                <div class="space-y-3.5">
+                  <div class="flex items-center justify-between text-xs text-slate-300 p-2.5 rounded-lg bg-navy-900/80 border border-slate-800/60">
+                    <span class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                      </svg>
+                      Google Cloud OAuth Limited Use
+                    </span>
+                    <span class="font-mono text-emerald-400">COMPLIANT</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs text-slate-300 p-2.5 rounded-lg bg-navy-900/80 border border-slate-800/60">
+                    <span class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                      </svg>
+                      Zero Data Reselling / Sharing
+                    </span>
+                    <span class="font-mono text-emerald-400">ENFORCED</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs text-slate-300 p-2.5 rounded-lg bg-navy-900/80 border border-slate-800/60">
+                    <span class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                      </svg>
+                      GDPR &amp; Right to Erasure
+                    </span>
+                    <span class="font-mono text-emerald-400">ACTIVE</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs text-slate-300 p-2.5 rounded-lg bg-navy-900/80 border border-slate-800/60">
+                    <span class="flex items-center gap-2">
+                      <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                      </svg>
+                      Containerized Microservices
+                    </span>
+                    <span class="font-mono text-emerald-400">ISOLATED</span>
+                  </div>
+                </div>
+
+                <div class="pt-2 text-center">
+                  <a href="privacy.html" class="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 underline font-medium">
+                    Read the complete Google OAuth Privacy Disclosure &rarr;
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE & DOCUMENTATION SECTION -->
+    <section id="architecture" class="py-20 bg-navy-950 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-950 text-blue-400 border border-blue-800/60">
+            SYSTEM PIPELINE
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            End-to-End Fleet Telemetry &amp; Sync Flow
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg">
+            How Bank System coordinates edge audio/OCR capture, cloud normalization, and storage security.
+          </p>
+        </div>
+
+        <!-- 3-Step Pipeline Flow Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          
+          <!-- Step 1 -->
+          <div class="bg-navy-900/60 border border-slate-800 rounded-2xl p-6 relative">
+            <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 font-mono font-bold flex items-center justify-center mb-4 border border-cyan-500/30">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Ingestion &amp; Recognition</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Camera feeds capture Egyptian license plates while field inspectors can dictate audio notes via Egyptian Arabic ASR. The engine recognizes Arabic characters and digits in parallel.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-navy-900/60 border border-slate-800 rounded-2xl p-6 relative">
+            <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 font-mono font-bold flex items-center justify-center mb-4 border border-blue-500/30">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Extraction &amp; Validation</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              PDF certificates of vehicle ownership and technical inspections are processed via specialized OCR parser to correlate vehicle VIN numbers and license records.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-navy-900/60 border border-slate-800 rounded-2xl p-6 relative">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 font-mono font-bold flex items-center justify-center mb-4 border border-emerald-500/30">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Google Drive Cloud Vault</h3>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Validated documents and inspection dossiers are structured and pushed directly into corporate Google Drive directories via authenticated OAuth 2.0 scopes.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Documentation callout anchor -->
+        <div id="documentation" class="mt-16 bg-slate-900/40 border border-slate-800 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-2 text-center md:text-left">
+            <h3 class="text-xl font-bold text-white">Looking for API &amp; Integration Specs?</h3>
+            <p class="text-sm text-slate-300 max-w-xl">
+              Access the technical schemas for Arabic OCR endpoint integration, speech streaming WebSockets, and Google Drive Service Account connectors.
+            </p>
+          </div>
+          <button onclick="openPortalModal()" class="px-6 py-3 rounded-xl font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-cyan-500/50 text-sm transition-all shrink-0">
+            Request API Keys &rarr;
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-navy-950 border-t border-slate-800/80 z-10 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-800/80">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="16" rx="3"></rect>
+                <circle cx="16" cy="14" r="2"></circle>
+              </svg>
+            </div>
+            <span class="text-lg font-bold text-white">Bank System</span>
+          </div>
+          <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
+            Enterprise vehicle license plate tracking, Egyptian Arabic ASR recognition, and automated certificate synchronization.
+          </p>
+          <div class="text-xs text-slate-400 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+            Cloud Operations &amp; Verification Active
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="md:col-span-3 space-y-3">
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Quick Navigation</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition-colors">Home Overview</a></li>
+            <li><a href="#features" class="hover:text-cyan-400 transition-colors">Core Features</a></li>
+            <li><a href="#security" class="hover:text-cyan-400 transition-colors">Security &amp; Encryption</a></li>
+            <li><a href="#architecture" class="hover:text-cyan-400 transition-colors">System Pipeline</a></li>
+          </ul>
+        </div>
+
+        <!-- Compliance & Support Links -->
+        <div class="md:col-span-4 space-y-3">
+          <h4 class="text-sm font-semibold text-white uppercase tracking-wider">Legal &amp; Support</h4>
+          <ul class="space-y-2 text-sm text-slate-400">
+            <li>
+              <a href="privacy.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 font-medium text-slate-300">
+                <span>Privacy Policy</span>
+                <span class="text-[10px] bg-cyan-950 text-cyan-400 px-1.5 py-0.5 rounded border border-cyan-800">OAuth</span>
+              </a>
+            </li>
+            <li><a href="#terms" onclick="showTermsNotice(event)" class="hover:text-cyan-400 transition-colors">Terms of Service</a></li>
+            <li>
+              <span class="text-slate-400">Support Inquiry:</span>
+              <a href="mailto:m26189232@gmail.com" class="text-cyan-400 hover:underline block font-mono text-xs mt-0.5">m26189232@gmail.com</a>
+            </li>
+            <li>
+              <span class="text-slate-400">Developer Contact:</span>
+              <a href="mailto:fayzb315@gmail.com" class="text-cyan-400 hover:underline block font-mono text-xs mt-0.5">fayzb315@gmail.com</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <div>
+          Copyright &copy; 2026 <strong class="text-slate-300 font-semibold">Bank System</strong>. All rights reserved.
+        </div>
+        <div class="flex items-center space-x-6">
+          <a href="privacy.html" class="hover:text-slate-200 transition-colors">Privacy Policy</a>
+          <span>•</span>
+          <a href="mailto:m26189232@gmail.com" class="hover:text-slate-200 transition-colors">Support</a>
+          <span>•</span>
+          <span class="text-slate-400">GDPR &amp; Google OAuth Compliant</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- SYSTEM PORTAL MODAL DIALOG -->
+  <div id="portal-modal" class="fixed inset-0 z-50 hidden bg-navy-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-navy-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 sm:p-8 space-y-6 shadow-2xl relative">
+      
+      <button onclick="closePortalModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors" aria-label="Close modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="text-center space-y-2">
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white">Bank System Enterprise Portal</h3>
+        <p class="text-xs text-slate-400">Sign in with authorized corporate Google or SSO credentials</p>
+      </div>
+
+      <div class="space-y-3">
+        <button onclick="alert('Demo notice: In production, this initiates the Google Cloud OAuth 2.0 flow for authorized bank fleet administrators.')" class="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white text-slate-900 font-semibold text-sm hover:bg-slate-100 transition-all shadow-md">
+          <svg class="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Sign in with Google Enterprise</span>
+        </button>
+
+        <div class="relative flex py-2 items-center">
+          <div class="flex-grow border-t border-slate-700"></div>
+          <span class="flex-shrink mx-4 text-slate-500 text-xs">or email credentials</span>
+          <div class="flex-grow border-t border-slate-700"></div>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Corporate Email</label>
+            <input type="email" placeholder="admin@enterprise-bank.com" class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-500 font-mono" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Access Token / Password</label>
+            <input type="password" placeholder="••••••••••••" class="w-full px-3.5 py-2.5 rounded-lg bg-navy-950 border border-slate-700 text-sm text-white focus:outline-none focus:border-cyan-500" />
+          </div>
+          <button onclick="alert('Demo environment: Please contact your systems administrator or m26189232@gmail.com for production credentials.')" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow">
+            Authenticate Session
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center pt-2">
+        <a href="privacy.html" class="text-xs text-slate-400 hover:text-cyan-400 underline">Review our Google API Scopes &amp; Privacy Statement</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Mobile menu toggle
+    const mobileButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    mobileButton.addEventListener('click', () => {
+      const isExpanded = !mobileMenu.classList.contains('hidden');
+      if (isExpanded) {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      } else {
+        mobileMenu.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      }
+    });
+
+    // Close mobile menu on clicking any navigation link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    });
+
+    // Portal Modal Controls
+    const portalModal = document.getElementById('portal-modal');
+
+    function openPortalModal() {
+      portalModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePortalModal() {
+      portalModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !portalModal.classList.contains('hidden')) {
+        closePortalModal();
+      }
+    });
+
+    // Close modal when clicking on backdrop
+    portalModal.addEventListener('click', (e) => {
+      if (e.target === portalModal) {
+        closePortalModal();
+      }
+    });
+
+    // Terms Notice helper
+    function showTermsNotice(e) {
+      e.preventDefault();
+      alert('Terms of Service: Bank System is an internal enterprise utility. Usage is governed by enterprise master service agreements and strict vehicle data privacy controls. For legal documentation, please contact m26189232@gmail.com.');
+    }
+  </script>
+
+</body>
+</html>
